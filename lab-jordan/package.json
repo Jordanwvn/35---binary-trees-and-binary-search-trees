@@ -1,0 +1,14 @@
+{
+  "name": "lab-jordan",
+  "version": "1.0.0",
+  "description": "",
+  "main": "bst.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "author": "Jordan Roger Liza",
+  "license": "ISC",
+  "dependencies": {
+    "jest": "^22.4.2"
+  }
+}
