@@ -1,20 +1,20 @@
 'use strict';
 
-class TreeNode{
+class TreeNode {
   constructor(value, left=null, right=null) {
     this.value = value;
     this.left = left;
     this.right = right;
   }
-}
+};
 
 
-const BST = module.exports = class{
+const BST = module.exports = class {
   constructor(root=null) {
     this.root = root;
   }
 
-  insert(root=this.root, nodeToInsert) {
+  insert(nodeToInsert, root=this.root) {
     // no root
     if (!root) {
       this.root = nodeToInsert;
@@ -132,4 +132,4 @@ const BST = module.exports = class{
   //     }
   //   }
   // }
-}
+};
