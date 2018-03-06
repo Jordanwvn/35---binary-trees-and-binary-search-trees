@@ -1,19 +1,20 @@
 'use strict';
 
-class TreeNode{
+class TreeNode {
   constructor(value, left=null, right=null) {
     this.value = value;
     this.left = left;
     this.right = right;
   }
-}
+};
 
-class BST{
+
+const BST = module.exports = class {
   constructor(root=null) {
     this.root = root;
   }
 
-  insert(root=this.root, nodeToInsert) {
+  insert(nodeToInsert, root=this.root) {
     // no root
     if (!root) {
       this.root = nodeToInsert;
@@ -39,18 +40,21 @@ class BST{
     node ? callback(node)
       : node.left ? this.preOrderTraversal(node.left, callback)
         : node.right ? this.preOrderTraversal(node.right, callback)
+          : null;
   }
 
   inOrderTraversal(node=this.root, callback) {
     node.left ? this.inOrderTraversal(node.left, callback)
       : node ? callback(node)
         : node.right ? this.inOrderTraversal(node.right, callback)
+          : null;
   }
 
   postOrderTraversal(node=this.root, callback) {
     node.left ? this.postOrderTraversal(node.left, callback)
       : node.right ? this.postOrderTraversal(node.right, callback)
         : node ? callback(node)
+          : null;
   }
 
   // TODO doesn't actually work. Left overall side could still be deeper than right overall side
@@ -128,4 +132,4 @@ class BST{
   //     }
   //   }
   // }
-}
+};
