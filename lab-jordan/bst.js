@@ -28,10 +28,10 @@ class BST{
     }
   }
 
-  find(root=this.root, value) {
+  find(root=this.root, value, parent) {
     return value === root.value ? root
-      : value > root.value ? this.find(root.right, value)
-        : value < root.value ? this.find(root.left, value)
+      : value > root.value ? this.find(root.right, value, root)
+        : value < root.value ? this.find(root.left, value, root)
           : null;
   }
 
@@ -53,6 +53,27 @@ class BST{
         : node ? callback(node)
   }
 
+
+  
+    
+  findParent = (value) =>  {
+    if(root.value === null) return null;
+    if(root.right === null && root.left === null) return null;
+    if((root.left != null && root.left.value === value) || (root.right != null && root.right.value === value)) {
+      return root
+    }
+    if(root.value > value) return findParent(root.left, value)
+    if(root.value < value) return findParent(root.right, value)
+  }
+
+
+
+
+
+ 
+  
+
+}
   // TODO doesn't actually work. Left overall side could still be deeper than right overall side
   // isBalanced() {
   //   let balanced = true;
