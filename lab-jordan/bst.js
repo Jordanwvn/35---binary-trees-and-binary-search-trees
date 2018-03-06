@@ -71,61 +71,61 @@ class BST{
   //   return balanced;
   // }
 
-  replaceL(node) {
-    if (!node.right.right) {
-      let result = node.right;
-      node.right = node.right.left;
-      return result;
-    } else {
-      return replaceL(node.right);
-    }
-  }
+  // replaceL(node) {
+  //   if (!node.right.right) {
+  //     let result = node.right;
+  //     node.right = node.right.left;
+  //     return result;
+  //   } else {
+  //     return replaceL(node.right);
+  //   }
+  // }
+  //
+  // replaceR(node) {
+  //   if (!node.left.left) {
+  //     let result = node.left;
+  //     node.left = node.left.right;
+  //     return result;
+  //   } else {
+  //     return replaceL(node.left);
+  //   }
+  // }
 
-  replaceR(node) {
-    if (!node.left.left) {
-      let result = node.left;
-      node.left = node.left.right;
-      return result;
-    } else {
-      return replaceL(node.left);
-    }
-  }
-
-  remove(root=this.root, value) {
-    let target;
-    // if the root IS the value
-    if (root === value) {
-      target = root.left ? 'root left' : root.right ? 'root right' : 'empty';
-    // if the root is NOT the value
-    } else {
-      target = root.left === value ? 'left' : root.right === value ? 'right' : null;
-    }
-    // base cases
-    switch (target) {
-
-      case 'root left':
-        return this.replaceL(root)
-
-      case 'left':
-        return this.replaceL(root[target])
-
-      case 'root right':
-        return this.replaceR(root)
-
-      case 'right':
-        return this.replaceR(root[target])
-
-      case 'empty': {
-        this.root = null;
-        return;
-      }
-      // recursive case
-      default: {
-        // recurse left
-        if (value < root.value) return root.left ? this.remove(root.left, value) : null;
-        // recurse right
-        if (value > root.value) return root.right ? this.remove(root.right, value) : null;
-      }
-    }
-  }
+  // remove(root=this.root, value) {
+  //   let target;
+  //   // if the root IS the value
+  //   if (root === value) {
+  //     target = root.left ? 'root left' : root.right ? 'root right' : 'empty';
+  //   // if the root is NOT the value
+  //   } else {
+  //     target = root.left === value ? 'left' : root.right === value ? 'right' : null;
+  //   }
+  //   // base cases
+  //   switch (target) {
+  //
+  //     case 'root left':
+  //       return this.replaceL(root)
+  //
+  //     case 'left':
+  //       return this.replaceL(root[target])
+  //
+  //     case 'root right':
+  //       return this.replaceR(root)
+  //
+  //     case 'right':
+  //       return this.replaceR(root[target])
+  //
+  //     case 'empty': {
+  //       this.root = null;
+  //       return;
+  //     }
+  //     // recursive case
+  //     default: {
+  //       // recurse left
+  //       if (value < root.value) return root.left ? this.remove(root.left, value) : null;
+  //       // recurse right
+  //       if (value > root.value) return root.right ? this.remove(root.right, value) : null;
+  //     }
+  //   }
+  // }
 }
