@@ -14,18 +14,18 @@ const BST = module.exports = class {
     this.root = root;
   }
 
-  insert(nodeToInsert, root=this.root) {
+  insert(value, root=this.root) {
     // no root
     if (!root) {
-      this.root = nodeToInsert;
+      this.root = new TreeNode(value);
     // going left
-    } else if (nodeToInsert.value < root.value) {
-      root.left ? this.insert(root.left, nodeToInsert)
-        : root.left = nodeToInsert;
+    } else if (value < root.value) {
+      root.left ? this.insert(value, root.left)
+        : root.left = new TreeNode(value);
     // going right
     } else {
-      !root.right ? this.insert(root.right, nodeToInsert)
-        : root.right = nodeToInsert;
+      root.right ? this.insert(value, root.right)
+        : root.right = new TreeNode(value);
     }
   }
 
