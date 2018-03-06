@@ -44,16 +44,27 @@ describe('BST', function () {
     bst.insert(5);
     bst.insert(12);
     bst.insert(15);
+    // it('should have a root value of 10', () => {
+    //   expect(bst.root.value).toBe(10);
+    // });
+  });
+
+  describe('#findParent', () => {
+    let bst = new BST();
+    bst.insert(10);
+    bst.insert(5);
+    bst.insert(12);
+    bst.insert(15);
     it('should have a root value of 10', () => {
-      expect(bst.root.value).toBe(10);
+      expect(bst.findParent(15)).toBe(12);
     });
 
-    it('should have a left value of 5', () => {
-      expect(bst.root.left.value).toBe(5);
-    });
+    // it('should have a left value of 5', () => {
+    //   expect(bst.root.left.value).toBe(5);
+    // });
 
-    it('should have a right value of 12', () => {
-      expect(bst.root.right.value).toBe(12);
-    });
+    // it('should have a right value of 12', () => {
+    //   expect(bst.root.right.value).toBe(12);
+    // });
   });
 });
