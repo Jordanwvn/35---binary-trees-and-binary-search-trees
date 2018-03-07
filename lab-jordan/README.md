@@ -3,3 +3,5 @@
 * remove(value) member function
 * preOrderTraversal and a postOrderTraversal member functions
 * isBalanced method
+
+## Jordan, Roger, Liza
