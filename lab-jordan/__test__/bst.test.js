@@ -128,4 +128,30 @@ describe('BST', function () {
       expect(bst.isBalanced()).toBe(true);
     });
   });
+
+  describe('#remove', () => {
+    it('should remove a node with zero children', () => {
+      let bst = new BST();
+      bst.insert(10);
+      bst.insert(20);
+      expect(bst.remove(20)).toBe(true);
+    });
+
+    it('should remove a node with one children', () => {
+      let bst = new BST();
+      bst.insert(10);
+      bst.insert(20);
+      bst.insert(40);
+      expect(bst.remove(20)).toBe(true);
+    });
+
+    it('should remove a node with two children', () => {
+      let bst = new BST();
+      bst.insert(10);
+      bst.insert(20);
+      bst.insert(40);
+      bst.insert(15);
+      expect(bst.remove(20)).toBe(true);
+    });
+  });
 });
