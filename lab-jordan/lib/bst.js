@@ -55,25 +55,22 @@ const BST = module.exports = class {
     }
   }
 
-  preOrderTraversal(node=this.root, callback) {
-    node ? callback(node)
-      : node.left ? this.preOrderTraversal(node.left, callback)
-        : node.right ? this.preOrderTraversal(node.right, callback)
-          : null;
+  preOrderTraverse (node, callback) {
+    if (node) callback(node);
+    if (node && node.left) traverse(node.left, callback);
+    if (node && node.right) traverse(node.right, callback);
   }
 
-  inOrderTraversal(node=this.root, callback) {
-    node.left ? this.inOrderTraversal(node.left, callback)
-      : node ? callback(node)
-        : node.right ? this.inOrderTraversal(node.right, callback)
-          : null;
+  inOrderTraverse (node, callback) {
+    if (node && node.left) traverse(node.left, callback);
+    if (node) callback(node);
+    if (node && node.right) traverse(node.right, callback);
   }
 
-  postOrderTraversal(node=this.root, callback) {
-    node.left ? this.postOrderTraversal(node.left, callback)
-      : node.right ? this.postOrderTraversal(node.right, callback)
-        : node ? callback(node)
-          : null;
+  postOrderTraverse (node, callback) {
+    if (node && node.left) traverse(node.left, callback);
+    if (node && node.right) traverse(node.right, callback);
+    if (node) callback(node);
   }
 
   findParent (value, node=this.root) {
