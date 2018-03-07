@@ -80,15 +80,15 @@ const BST = module.exports = class {
     return 1 + Math.max(this.heightOf(node.left), this.heightOf(node.right));
   }
 
-  isBalanced(node) {
-    if (!this.root) return true;
+  isBalanced(node=this.root) {
+    if (!this.root || !node) return true;
 
-    let leftHeight = this.heightOf(node.left);
-    let rightHeight = this.heightOf(node.right);
+    let leftHeight = node.left ? this.heightOf(node.left) : 0;
+    let rightHeight = node.right ? this.heightOf(node.right) : 0;
 
     if (Math.abs(leftHeight - rightHeight) <= 1 &&
-      isBalanced(node.left) &&
-      isBalanced(node.right)) return true;
+      this.isBalanced(node.left) &&
+      this.isBalanced(node.right)) return true;
 
     return false;
   }
