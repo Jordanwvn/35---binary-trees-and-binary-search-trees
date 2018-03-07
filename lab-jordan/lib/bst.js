@@ -42,6 +42,19 @@ const BST = module.exports = class {
     }
   }
 
+  findNode(value, root=this.root) {
+    switch (true) {
+    case root.value === value:
+      return root;
+    case value < root.value && !!root.left:
+      return this.find(value, root.left);
+    case value > root.value && !!root.right:
+      return this.find(value, root.right);
+    default:
+      return null;
+    }
+  }
+
   preOrderTraversal(node=this.root, callback) {
     node ? callback(node)
       : node.left ? this.preOrderTraversal(node.left, callback)
@@ -93,35 +106,62 @@ const BST = module.exports = class {
     return false;
   }
 
-  larget(node) {
+  largest(node) {
     return !!node.right ? this.largest(node.right) : node.value;
   }
 
   remove(value) {
-    let target = findParent(value);
+    if (typeof value !== 'number')
+      throw new TypeError('value must be a number');
+    // nothing to remove if the tree is empty
+    if (!this.root)
+      return false;
 
-    let parent = target.parent;
-    let child = target.parent[target.direction];
+    // edge case: value to remove is the root
+    // use the dummy root approach
+    if (value === this.root.value) {
+      let dummy = new TreeNode(0);
+      // set dummy node as parent of actual root
+      dummy.left = this.root;
+      let result = this._remove(this.root, value, dummy);
+      // set new root to the left child of dummy
+      this.root = dummy.left;
+      return result;
+    }
+
+    return this._remove(this.root, value);
+  }
+
+  _remove(node, value, parent) {
+    // assume success, set false when not possible
+    let result = true;
 
     switch (true) {
-    // ZERO CHILDREN
-    case !child.left && !child.right:
-      parent[target.direction] = null;
+    case value < node.value:
+      result = node.left ? this._remove(node.left, value, node) : false;
       break;
-    // ONE CHILD RIGHT
-    case !child.left && !!child.right:
-      parent[targetDirection] = child.right;
+
+    case value > node.value:
+      result = node.right ? this._remove(node.right, value, node): false;
       break;
-    // ONE CHILD LEFT
-    case !!child.left && !child.right:
-      parent[targetDirection] = child.left;
-      break;
-    // TWO CHILDREN
-    case !!child.left && !!child.right:
-      let value = this.largest(child.left);
-      this.remove(value)
-      child.value = value;
+
+    default:
+      (node.left && node.right)
+        ? (node.value = this._findMinimum(node.right), this._remove(node.right, node.value, node))
+        : parent.left === node
+          ? parent.left = (node.left ? node.left : node.right)
+          : parent.right = (node.left ? node.left : node.right);
       break;
     }
+    return result;
+  }
+
+  _findMinimum(node) {
+    if (!node || !(node instanceof TreeNode))
+      throw new TypeError('must have a valid node of type TreeNode');
+
+    return node.left
+      ? this._findMinimum(node.left)
+      : node.value;
   }
 };
