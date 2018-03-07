@@ -78,4 +78,54 @@ describe('BST', function () {
       expect(bst.root.left.left.value).toBeNull();
     });
   });
+
+  describe('#isBalanced', () => {
+    it('should return true there is no root', () => {
+      let bst = new BST();
+      expect(bst.isBalanced()).toBe(true);
+    });
+
+    it('should return false for a not balanced tree', () => {
+      let bst = new BST();
+      bst.insert(10);
+      bst.insert(5);
+      bst.insert(12);
+      bst.insert(13);
+      bst.insert(14);
+      expect(bst.isBalanced()).toBe(false);
+    });
+
+    it('should return true for a balanced tree', () => {
+      let bst = new BST();
+      bst.insert(10);
+      bst.insert(5);
+      bst.insert(12);
+      expect(bst.isBalanced()).toBe(true);
+    });
+  });
+
+  describe('#preOrderTraversal', () => {
+    it('should return true there is no root', () => {
+      let bst = new BST();
+      expect(bst.isBalanced()).toBe(true);
+    });
+
+    it('should return false for a not balanced tree', () => {
+      let bst = new BST();
+      bst.insert(10);
+      bst.insert(5);
+      bst.insert(12);
+      bst.insert(13);
+      bst.insert(14);
+      expect(bst.isBalanced()).toBe(false);
+    });
+
+    it('should return true for a balanced tree', () => {
+      let bst = new BST();
+      bst.insert(10);
+      bst.insert(5);
+      bst.insert(12);
+      expect(bst.isBalanced()).toBe(true);
+    });
+  });
 });
