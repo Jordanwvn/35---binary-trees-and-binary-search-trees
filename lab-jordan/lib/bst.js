@@ -1,14 +1,15 @@
 'use strict';
 
-class TreeNode{
+class TreeNode {
   constructor(value, left=null, right=null) {
     this.value = value;
     this.left = left;
     this.right = right;
   }
-}
+};
 
-class BST{
+
+const BST = module.exports = class {
   constructor(root=null) {
     this.root = root;
   }
@@ -23,23 +24,22 @@ class BST{
         : root.left = new TreeNode(value);
     // going right
     } else {
-      !root.right ? this.insert(value, root.right)
+      root.right ? this.insert(value, root.right)
         : root.right = new TreeNode(value);
     }
   }
 
-  find(root=this.root, value) {
-    return value === root.value ? root
-      : value > root.value ? this.find(root.right, value)
-        : value < root.value ? this.find(root.left, value)
-          : null;
-  }
-
-  findParent(value, root=this.root, parent=null, childDirection='') {
-    return value === root.value ? {parent: parent, direction: childDirection}
-      : value > root.value ? this.find(value, root.right, root, 'right')
-        : value < root.value ? this.find(value, root.left, root, 'left')
-          : null;
+  find(value, root=this.root) {
+    switch (true) {
+    case root.value === value:
+      return root.value;
+    case value < root.value && !!root.left:
+      return this.find(value, root.left);
+    case value > root.value && !!root.right:
+      return this.find(value, root.right);
+    default:
+      return null;
+    }
   }
 
   preOrderTraversal(node=this.root, callback) {
@@ -63,6 +63,15 @@ class BST{
           : null;
   }
 
+  findParent (value, node=this.root) {
+    if(node.value === null) return null;
+    if(node.right === null && node.left === null) return null;
+    if((node.left != null && node.left.value === value) || (node.right != null && node.right.value === value)) {
+      return node.value;
+    }
+    if(node.value > value) return this.findParent(value, node.left);
+    if(node.value < value) return this.findParent(value, node.right);
+  }
 
   heightOf(node) {
     // if you've recursed from a leaf, add 0
@@ -83,38 +92,4 @@ class BST{
 
     return false;
   }
-
-  larget(node) {
-    return !!node.right ? this.largest(node.right) : node.value;
-  }
-
-  remove(value) {
-    let target = findParent(value);
-
-    let parent = target.parent;
-    let child = target.parent[target.direction];
-
-    switch (true) {
-    // ZERO CHILDREN
-    case !child.left && !child.right:
-      parent[target.direction] = null;
-      break;
-    // ONE CHILD RIGHT
-    case !child.left && !!child.right:
-      parent[targetDirection] = child.right;
-      break;
-    // ONE CHILD LEFT
-    case !!child.left && !child.right:
-      parent[targetDirection] = child.left;
-      break;
-    // TWO CHILDREN
-    case !!child.left && !!child.right:
-      let value = this.largest(child.left);
-      this.remove(value)
-      child.value = value;
-      break;
-    }
-  }
-
-
-}
+};
