@@ -72,80 +72,24 @@ const BST = module.exports = class {
     if(node.value > value) return this.findParent(value, node.left);
     if(node.value < value) return this.findParent(value, node.right);
   }
+
+  heightOf(node) {
+    // if you've recursed from a leaf, add 0
+    if (!node) return 0;
+    // otherwise, add 1 and recurse over whichever branch is larger
+    return 1 + Math.max(this.heightOf(node.left), this.heightOf(node.right));
+  }
+
+  isBalanced(node) {
+    if (!this.root) return true;
+
+    let leftHeight = this.heightOf(node.left);
+    let rightHeight = this.heightOf(node.right);
+
+    if (Math.abs(leftHeight - rightHeight) <= 1 &&
+      isBalanced(node.left) &&
+      isBalanced(node.right)) return true;
+
+    return false;
+  }
 };
-// TODO doesn't actually work. Left overall side could still be deeper than right overall side
-// isBalanced() {
-//   let balanced = true;
-//   this.preOrderTraversal(this.root, (currentNode) => {
-//     let leftDepth, rightDepth;
-//
-//     // check left-side depth
-//     node.left ? (node.left || node.right) ? leftDepth = 2 : leftDepth = 1 : leftDepth = 0;
-//     // check right-side depth
-//     node.right ? (node.left || node.right) ? rightDepth = 2 : rightDepth = 1 : rightDepth = 0;
-//
-//     if ((leftDepth === 0 && rightDepth === 2) || (leftDepth === 2 && rightDepth === 0)) {
-//       balanced = false;
-//     }
-//   })
-//   return balanced;
-// }
-
-// replaceL(node) {
-//   if (!node.right.right) {
-//     let result = node.right;
-//     node.right = node.right.left;
-//     return result;
-//   } else {
-//     return replaceL(node.right);
-//   }
-// }
-//
-// replaceR(node) {
-//   if (!node.left.left) {
-//     let result = node.left;
-//     node.left = node.left.right;
-//     return result;
-//   } else {
-//     return replaceL(node.left);
-//   }
-// }
-
-// remove(root=this.root, value) {
-//   let target;
-//   // if the root IS the value
-//   if (root === value) {
-//     target = root.left ? 'root left' : root.right ? 'root right' : 'empty';
-//   // if the root is NOT the value
-//   } else {
-//     target = root.left === value ? 'left' : root.right === value ? 'right' : null;
-//   }
-//   // base cases
-//   switch (target) {
-//
-//     case 'root left':
-//       return this.replaceL(root)
-//
-//     case 'left':
-//       return this.replaceL(root[target])
-//
-//     case 'root right':
-//       return this.replaceR(root)
-//
-//     case 'right':
-//       return this.replaceR(root[target])
-//
-//     case 'empty': {
-//       this.root = null;
-//       return;
-//     }
-//     // recursive case
-//     default: {
-//       // recurse left
-//       if (value < root.value) return root.left ? this.remove(root.left, value) : null;
-//       // recurse right
-//       if (value > root.value) return root.right ? this.remove(root.right, value) : null;
-//     }
-//   }
-// }
-//};
