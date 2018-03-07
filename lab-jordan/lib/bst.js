@@ -29,11 +29,17 @@ const BST = module.exports = class {
     }
   }
 
-  find(root=this.root, value, parent) {
-    return value === root.value ? root
-      : value > root.value ? this.find(root.right, value, root)
-        : value < root.value ? this.find(root.left, value, root)
-          : null;
+  find(value, root=this.root) {
+    switch (true) {
+    case root.value === value:
+      return root.value;
+    case value < root.value && !!root.left:
+      return this.find(value, root.left);
+    case value > root.value && !!root.right:
+      return this.find(value, root.right);
+    default:
+      return null;
+    }
   }
 
   preOrderTraversal(node=this.root, callback) {
