@@ -92,4 +92,36 @@ const BST = module.exports = class {
 
     return false;
   }
+
+  larget(node) {
+    return !!node.right ? this.largest(node.right) : node.value;
+  }
+
+  remove(value) {
+    let target = findParent(value);
+
+    let parent = target.parent;
+    let child = target.parent[target.direction];
+
+    switch (true) {
+    // ZERO CHILDREN
+    case !child.left && !child.right:
+      parent[target.direction] = null;
+      break;
+    // ONE CHILD RIGHT
+    case !child.left && !!child.right:
+      parent[targetDirection] = child.right;
+      break;
+    // ONE CHILD LEFT
+    case !!child.left && !child.right:
+      parent[targetDirection] = child.left;
+      break;
+    // TWO CHILDREN
+    case !!child.left && !!child.right:
+      let value = this.largest(child.left);
+      this.remove(value)
+      child.value = value;
+      break;
+    }
+  }
 };
